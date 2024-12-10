@@ -22,10 +22,7 @@ with open("sensor_data.csv", encoding="utf8") as f:
         for j in i:
             # \ufeffを除去
             if j[0] == "\ufeff":
-                tmp = ""
-                for k in range(1, j.__len__()):
-                    tmp = tmp + j[k]
-                j = tmp
+                j = j[1:]
 
             x_train[idx_row, idx_col] = int(j)
             idx_col = idx_col + 1
@@ -38,10 +35,7 @@ with open("class_data.csv", encoding="utf8") as f:
     for i in reader:
         # \ufeffを除去
         if i[0] == "\ufeff":
-            tmp = ""
-            for k in range(1, j.__len__()):
-                tmp = tmp + j[k]
-            j = tmp
+            j = j[1:]
 
         y_train[idx_row] = int(j)
         idx_row = idx_row + 1
