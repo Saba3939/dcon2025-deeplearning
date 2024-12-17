@@ -6,7 +6,7 @@ import serial
 # シリアルポートの設定
 PORT = 'COM4'  # 使用しているポート名（例: WindowsではCOMポート、Linux/Macでは/dev/ttyXXX）
 BAUD_RATE = 115200  # ボーレート
-TIMEOUT = 10       # タイムアウト時間（秒）
+TIMEOUT = 1000       # タイムアウト時間（秒）
 
 
 def read_from_serial(ser):
@@ -23,7 +23,9 @@ def read_from_serial(ser):
 
 with serial.Serial(PORT, BAUD_RATE, timeout=TIMEOUT) as ser:
     # シリアルポートからデータを取得
-    sensor_data = read_from_serial(ser)
+    sensor_data = None
+    while sensor_data == None:
+        sensor_data = read_from_serial(ser)
 
 #分類するデータ
 sample_data = numpy.array([sensor_data])
