@@ -7,7 +7,7 @@ from tensorflow.keras import layers, models
 # 出力：どのような姿勢か
 
 # 学習用入力データのサイズ
-SIZE_ROW = 39
+SIZE_ROW = 422
 SIZE_COL = 9
 
 x_train = numpy.ndarray(shape=[SIZE_ROW, SIZE_COL])
@@ -58,7 +58,8 @@ class_model.compile(optimizer='adam',
 # class_model.summary()
 
 # モデルを学習
-class_model.fit(x_train, class_train, epochs=10, batch_size=32)
+print("class_model:")
+class_model.fit(x_train, class_train, epochs=32, batch_size=16)
 
 # モデルの出力
 class_model.save("bogosort_class.keras")
@@ -80,7 +81,7 @@ goodness_model = models.Sequential([
     layers.Input(shape=(9,)),                 # 入力層（9つの特徴量）
     layers.Dense(64, activation='relu'),      # 隠れ層1
     layers.Dense(32, activation='relu'),      # 隠れ層2
-    layers.Dense(6, activation='softmax')     # 出力層（6クラス分類）
+    layers.Dense(3, activation='softmax')     # 出力層（6クラス分類）
 ])
 
 # モデルのコンパイル
@@ -92,7 +93,8 @@ goodness_model.compile(optimizer='adam',
 # goodness_model.summary()
 
 # モデルを学習
-goodness_model.fit(x_train, goodness_train, epochs=10, batch_size=32)
+print("goodness_model:")
+goodness_model.fit(x_train, goodness_train, epochs=32, batch_size=16)
 
 # モデルの出力
 goodness_model.save("bogosort_goodness.keras")
